@@ -131,6 +131,8 @@
   .stats.tp { grid-template-columns:repeat(4,1fr); gap:.5em; column-gap:.5em; margin-bottom:.5em; } .stats.tp div { padding:.45em .6em; } .stats.tp b.n { font-size:1.45em; } .stats.tp .s { font-size:.8em; }
   b.ni { font-size:1.25em; font-weight:700; color:var(--blue); line-height:1; }
   .body.c1 { align-content:start; } .notes > section { display:flex; flex-direction:column; } .notes > section > .box { flex:1; }
+  /* v35: on portrait screens the table columns get narrow; tags and long handles wrap inside their cell so they never run into the next one */
+  @media (max-aspect-ratio: 1/1) { td .tag { white-space:normal; display:inline-block; max-width:100%; padding:.15em .35em; border-radius:.6em; line-height:1.2; } td { overflow-wrap:anywhere; } }
 </style>
 </head>
 <body>
@@ -218,10 +220,9 @@ const STATIONS = [
       ${sec(1,"What I liked",`<p class="box hot">Frontier wanted one new feature shown: guests fly off a slide that's too steep. He runs the same slide twice, off then on. That's the product demo, and it's the funniest moment in the video.</p>`)}
       ${sec(2,"Why it worked",`<p class="box">He says it's sponsored in the first few seconds, and then never stops for an ad read. The feature is part of the joke.</p>`)}
       ${sec(3,"How well it showed the game",`<p class="box">He spends the rest building a park where nobody survives. You see a lot of the game on the way, and nobody stops to teach you.</p>`)}
-      ${sec(4,"My guess at the brief",`<p class="box">One feature to show, and a lot of freedom.<span class="s">My guess, from the video and the link name (Update3).</span></p>`)}
-      <div class="two"><div class="box blue"><p><b>Same idea, another creator.</b> Frontier asked RTGame for a family friendly park. He built a death park. The brief gave him something to break.</p></div><div class="box blue"><p><b>Same idea, at an event.</b> At Thorpe Park, 13 creators rode a real coaster blindfolded, then rebuilt it in the game from memory. The challenge was the demo.</p></div></div>
+      ${sec(4,"My guess at the brief",`<p class="box">One feature to show, and a lot of freedom.<span class="s">My guess, from the video and the link name (Update3).</span></p><p class="box blue" style="margin-top:.6em"><span class="lab">Same idea, at an event</span>At Thorpe Park, 13 creators rode a real coaster blindfolded, then rebuilt it in the game from memory. The challenge was the demo.</p>`)}
     </div></div>`,
-  foot:"8.8M views: YouTube, 18 Nov 2026. 5:26: the time in the video, watched by me." },
+  foot:"8.8M views: YouTube, 18 Nov 2026. 5:26: the time in the video, watched by me. 13 creators at Thorpe Park: agency Dead Good's case page." },
 
 /* 4 beats */ { title:"Campaign beats: after launch, paid creators came with a DLC, an update or a sale", shape:"text", text:"2.8x",
   sub:"Before launch they built interest. In launch week they showed real play. After launch, five of the six paid videos came within eight days of an update, a DLC or a sale.",
@@ -623,7 +624,7 @@ function showPanel(i){ const s=STATIONS[i];
   panel.innerHTML=`<header><span class="eyebrow">STOP ${i+1} OF ${N}</span><h1>${s.title}</h1><p class="sub">${s.sub||''}</p></header>${s.html}<footer class="foot">${s.foot||''}</footer>`;
   fit(); panel.querySelectorAll('img').forEach(im=>{ if(!im.complete) im.addEventListener('load',fit,{once:true}); }); panel.classList.remove('away'); panel.classList.add('on'); document.body.classList.add('arrived','reading'); setShape(s.shape||'scatter', s.text); }
 /* spare height in a short column goes into its table rows: short rows grow to one shared height, tall rows keep theirs */
-function unbalance(p){ p.querySelectorAll('.body tr').forEach(r=>r.style.height=''); p.querySelectorAll('.body img').forEach(i=>{ if(i.dataset.h!==undefined) i.style.height=i.dataset.h; }); p.querySelectorAll('.body .grown').forEach(e=>{ e.style.minHeight=''; e.classList.remove('grown'); }); }
+function unbalance(p){ p.querySelectorAll('.body tr').forEach(r=>r.style.height=''); p.querySelectorAll('.body img').forEach(i=>{ if(i.dataset.h!==undefined) i.style.height=i.dataset.h; }); p.querySelectorAll('.body .grown, .body .grownx').forEach(e=>{ e.style.minHeight=''; e.classList.remove('grown','grownx'); }); }
 function balance(p){ const z=p.getBoundingClientRect().height/p.offsetHeight||1; /* the panel may still be scaled by its entry animation */
   p.querySelectorAll('.body > .col, .body.c1').forEach(c=>{
   const k=[...c.children]; if(!k.length) return;
@@ -636,7 +637,7 @@ function balance(p){ const z=p.getBoundingClientRect().height/p.offsetHeight||1;
     const s=[...h].sort((a,b)=>a-b), target=s.reduce((a,b)=>a+b,0)+left; let L=0;
     for(let n=s.length;n>=1;n--){ L=(target-s.slice(n).reduce((a,b)=>a+b,0))/n; if(L>=s[n-1]) break; }
     rows.forEach((r,i)=>r.style.height=Math.max(h[i],L)+'px'); }
-  else { const g=k.reduce((a,b)=>b.getBoundingClientRect().height>a.getBoundingClientRect().height?b:a); g.style.minHeight=(g.getBoundingClientRect().height/z+left)+'px'; g.classList.add('grown'); }
+  else { const g=k.reduce((a,b)=>b.getBoundingClientRect().height>a.getBoundingClientRect().height?b:a); g.style.minHeight=(g.getBoundingClientRect().height/z+left)+'px'; g.classList.add(getComputedStyle(g).display==='block'?'grown':'grownx'); /* only plain blocks become a centred flex column; a grid like .two keeps its columns */ }
 }); }
 function fitScale(b,set){ let lo=.6,hi=1.5; for(let k=0;k<9;k++){ const m=(lo+hi)/2; set(m); if(b.scrollHeight>b.clientHeight+1||b.scrollWidth>b.clientWidth+1) hi=m; else lo=m; } return lo; }
 function colSlack(b){ let t=0; b.querySelectorAll(':scope > .col').forEach(c=>{ const k=c.lastElementChild; if(k) t+=Math.max(0,c.getBoundingClientRect().bottom-k.getBoundingClientRect().bottom); }); return t; }
