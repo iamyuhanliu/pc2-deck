@@ -130,6 +130,8 @@
   .stats.tpm { grid-template-columns:1.3fr repeat(4,1fr); gap:.6em; column-gap:.6em; } .stats.tpm div { padding:.45em .7em; } .stats.tpm b.n { font-size:1.12em; margin-bottom:.2em; } .stats.tpm .s { font-size:.8em; }
   .stats.tp { grid-template-columns:repeat(4,1fr); gap:.5em; column-gap:.5em; margin-bottom:.5em; } .stats.tp div { padding:.45em .6em; } .stats.tp b.n { font-size:1.45em; } .stats.tp .s { font-size:.8em; }
   b.ni { font-size:1.25em; font-weight:700; color:var(--blue); line-height:1; }
+  table.learn td:first-child { background:var(--green-t); } table.learn th:first-child { color:#8fe6b8; } table.learn td:last-child { background:var(--blue-t); font-weight:600; } table.learn th:last-child { color:#a9ceff; }
+  table.io td:first-child { font-weight:600; }
   .body.c1 { align-content:start; } .notes > section { display:flex; flex-direction:column; } .notes > section > .box { flex:1; }
   /* v35: on portrait screens the table columns get narrow; tags and long handles wrap inside their cell so they never run into the next one */
   @media (max-aspect-ratio: 1/1) { td .tag { white-space:normal; display:inline-block; max-width:100%; padding:.15em .35em; border-radius:.6em; line-height:1.2; } td { overflow-wrap:anywhere; } }
@@ -290,7 +292,7 @@ const STATIONS = [
     </div></div>`,
   foot:"Instagram: read in my own logged-in browser on 22 Nov 2026, viewing only. Reel views from each account's reels page. Likes from each post page. TikTok: my own search on 18 Nov 2026, four rounds and 37 search terms; \"12\" is what I found, and there are surely more. Instagram posts by Frontier's partners: my search, 20 Nov 2026." },
 
-/* 6 assessment */ { title:"Assessment: what worked, what didn't, and how I'd measure it", shape:"text", text:"23%",
+/* 6 assessment */ { title:"Assessment: what worked, and what I'd improve", shape:"text", text:"23%",
   sub:"Nobody outside Frontier can see sales per creator. So I checked what I could by day: Steam players, reviews, price and Google searches.",
   html:`<div class="body c2 hastop">
     <div class="stats span">
@@ -306,11 +308,6 @@ const STATIONS = [
         <tr><td>Tying videos to updates and sales</td><td>Every rise in Steam players I could see (8% to 55% week on week) matches an update, a DLC or a discount. <span class="s">My check: SteamDB daily players against Steam news and price history</span></td></tr>
         
       </table>`)}
-      ${sec(3,"Metrics I'd use",`<table class="k2">
-        <tr><td>Did the moment travel</td><td>Views against the median views of that creator's long videos, and shares per view, because a funny clip spreads through shares</td></tr>
-        <tr><td>Did people get curious</td><td>Searches for the game, Steam wishlists and follows, and comments asking what the game is</td></tr>
-        <tr><td>Did it sell</td><td>Copies through each creator's link or code, plus the lift over two quiet weeks before we start. Checked again at 60 to 90 days, because a funny video keeps travelling</td></tr>
-      </table>`)}
     </div>
     <div class="col">
       <p class="box hot" style="font-weight:600;text-align:center">Frontier's biggest video and its sale missed each other by eight days.</p>
@@ -322,8 +319,35 @@ const STATIONS = [
     </div></div>`,
   foot:"Sales figures: Frontier's half-year summary and annual report. 23M: Dead Good's case page, labelled \"Reach (Twitch, YouTube, TikTok)\", no date given. Players, reviews and prices: Steam and SteamDB. Searches: Google Trends. TikTok: my search, 18 Nov 2026." },
 
-/* 7 */ { title:"For SEGA: Two Point Museum's next DLC, built on funny moments", shape:"text", text:"1.6x",
-  sub:"Planet Coaster 2 showed that funny moments bring the views in a management game. Two Point is already a comedy game, and its next big DLC is due early next year.",
+/* 7 metrics */ { title:"Metrics: how I'd know the funny moments worked", shape:"text", text:"23%",
+  sub:"Nobody outside Frontier can see sales per creator, so I measured what I could from outside. A brand like SEGA can add the rest from inside.",
+  html:`<div class="body c2">
+    <div class="col">
+      ${sec(1,"What I'd measure, in this order",`<table class="k2">
+        <tr><th>Question</th><th>How I'd measure it</th></tr>
+        <tr><td><b>Did the moment travel</b></td><td>Views against that creator's normal, and shares per view, because a funny clip spreads through shares</td></tr>
+        <tr><td><b>Did people get curious</b></td><td>Searches for the game, Steam wishlists and follows, and comments asking what the game is</td></tr>
+        <tr><td><b>Did it sell</b></td><td>Copies through each creator's link and code, plus the lift against two quiet weeks before we start</td></tr>
+      </table>`)}
+      ${sec(2,"From outside, and what a brand can add from inside",`<table class="k2 io">
+        <tr><th>What I could measure from outside</th><th>What SEGA could add from inside</th></tr>
+        <tr><td>Views by day, from the web archive and Creator Signal</td><td>Watch time and audience country from each creator's own analytics, written into the deal</td></tr>
+        <tr><td>Searches (Google Trends) and comments</td><td>Visits from each creator's tracked link. Frontier's fron.dev links already carry the creator's name</td></tr>
+        <tr><td>Players, followers and price history (SteamDB), and 15,301 Steam reviews</td><td>Sales by link and code, and new players counted apart from DLC buyers</td></tr>
+      </table>`)}
+    </div>
+    <div class="col">
+      ${sec(3,"Checking a creator against their own normal",`<div class="csbox"><div class="cshead"><b>Creator Signal, a tool I built</b><span class="cslink">iamyuhanliu.github.io/creator-signal</span></div><table class="k2">
+        <tr><th>Creator SEGA already paid for Two Point Museum</th><th>Sponsored video vs their normal views</th></tr>
+        <tr class="key"><td>${who('rce','Real Civil Engineer')}</td><td><b class="n g">1.6x</b></td></tr>
+        <tr><td>${who('ambi','ambiguous&shy;amphibian')}</td><td><b class="n o">0.6x</b></td></tr>
+      </table><img src="${IMG.cs}" alt="Creator Signal" style="width:100%;border-radius:.6em;margin-top:.45em;display:block"><span class="s">Normal = median views of their long videos (over 3 min, not live, at least 3 days old). Run on 15 Nov 2026.</span></div>`)}
+      <p class="box hot" style="font-weight:600;text-align:center">I'd judge every creator against their own normal, and again at 60 to 90 days. The coaster video had only 23% of its views by day six.</p>
+    </div></div>`,
+  foot:"23% by day six: my calc, 2.03M in the web archive on day six ÷ 8.77M on 18 Nov 2026. fron.dev links: each redirects to planetcoaster.com with the creator's name in the link (utm_source), checked Nov 2026. Sponsored videos by Real Civil Engineer and ambiguousamphibian are marked as sponsored on YouTube. Searches: Google Trends. Players, followers and prices: SteamDB." },
+
+/* 8 sega */ { title:"For SEGA: what I'd take into Two Point Museum's next DLC", shape:"text", text:"2027",
+  sub:"Two Point is already a comedy game, so funny moments fit it even better. Its next big DLC is due early next year.",
   html:`<div class="body c2 hastop">
     <div class="span"><div class="stats tpm" style="grid-template-columns:1.2fr repeat(4,1fr)">
       <img class="hero" src="${IMG.steam_tpm}" alt="Two Point Museum" style="height:3.9em;width:100%;object-fit:cover;border-radius:.9em;align-self:center">
@@ -333,49 +357,23 @@ const STATIONS = [
       <div><b class="n">4 paid DLCs</b><span class="s">So far. Latest: Rides &amp; Relics, Oct 2026. VGC</span></div>
     </div></div>
     <div class="col">
-      ${sec(1,"Check a creator before booking again",`<div class="csbox"><div class="cshead"><b>Creator Signal, a tool I built</b><span class="cslink">iamyuhanliu.github.io/creator-signal</span></div><table class="k2">
-        <tr><th>Creator SEGA already paid</th><th>Sponsored video vs their normal views</th></tr>
-        <tr class="key"><td>${who('rce','Real Civil Engineer')}</td><td><b class="n g">1.6x</b></td></tr>
-        <tr><td>${who('ambi','ambiguous&shy;amphibian')}</td><td><b class="n o">0.6x</b></td></tr>
-      </table><img src="${IMG.cs}" alt="Creator Signal" style="width:100%;border-radius:.6em;margin-top:.45em;display:block"><span class="s">It compares a sponsored video with the creator's normal views. Normal = median views of their long videos (over 3 min, not live, at least 3 days old). Run on 15 Nov 2026.</span></div>`)}
+      ${sec(1,"What I learned, and what I'd do with it",`<table class="learn">
+        <tr><th>From Planet Coaster 2</th><th>For the next DLC</th></tr>
+        <tr><td>The feature was the joke<span class="s">Page 3</span></td><td>Ask the studio which part of the new feature goes wrong in a funny way by design. Build every brief around it</td></tr>
+        <tr><td>A free key came before the pay<span class="s">Page 2</span></td><td>Keys to comedy creators first. Pay the ones whose moment travels</td></tr>
+        <tr><td>The biggest video missed its sale<span class="s">Pages 4 and 6</span></td><td>The DLC, the sale and the videos on the same day. The date and the Ad label in every contract</td></tr>
+        <tr><td>The funniest short clips came from small accounts<span class="s">Page 5</span></td><td>Put the funny moment in the brief for TikTok's Gaming Incentive Programme. Run the best clips as Spark Ads and Reels</td></tr>
+        <tr><td>Nobody taught new players<span class="s">Page 6</span></td><td>Add one creator who teaches the DLC</td></tr>
+      </table>`)}
     </div>
     <div class="col">
-      ${sec(2,"Who makes the funny moments",`<table class="aud">
-        <tr><th>Audience</th><th>Reached today?</th><th>What I'd brief</th></tr>
-        <tr><td><b>Two Point fans</b></td><td><span class="tag g">Yes</span></td><td>Keep the comedy and management creators SEGA already uses.</td></tr>
-        <tr class="key"><td><b>Comedy creators, for the new DLC</b></td><td><span class="tag a">Partly</span></td><td>Give them the DLC's headline feature to break. <b>The feature is the joke</b>, like the Planet Coaster 2 slide.</td></tr>
-        <tr><td><b>Museum and history fans</b></td><td><span class="tag a">Not paid yet</span></td><td>The exhibits are silly takes on real fossils and artefacts, so an expert reacting to them is a funny moment too. Some already post unpaid, like a palaeontologist reacting to its fossils. Book ten small history channels, and host them at a real museum first, the way Frontier used Thorpe Park. <span class="s">Unpaid examples: Palaeocast Gaming Network, RogueReefing. Venues: Pitt Rivers Museum, Oxford, from £600 an hour; a stand at a Science Museum Lates night</span></td></tr>
+      ${sec(2,"Who I'd brief",`<table class="aud">
+        <tr><th>Creators</th><th>Today</th><th>Why</th></tr>
+        <tr><td><b>Two Point creators</b></td><td><span class="tag g">Paid already</span></td><td>Keep the comedy and management creators SEGA already uses</td></tr>
+        <tr class="key"><td><b>Comedy creators</b></td><td><span class="tag a">Partly</span></td><td>They get the DLC's funny moment first</td></tr>
+        <tr><td><b>History creators</b></td><td><span class="tag a">Not paid yet</span></td><td>The exhibits are silly takes on real fossils, so an expert's reaction is a funny moment too. Host them at a real museum first, the way Frontier used Thorpe Park <span class="s">Unpaid examples: Palaeocast Gaming Network, RogueReefing. Venue idea: Pitt Rivers Museum, Oxford</span></td></tr>
       </table>`)}
-      ${sec(3,"Step one: find the funny moment",`<p class="box hot">My assumption: the DLC has one headline feature, like every pack so far. Before any brief, I'd ask the studio which part of it goes wrong in a funny way by design, so it looks like a joke and not a bug. Every brief is built around that moment.</p>`)}
-    </div></div>`,
-  foot:"Sponsored videos by Real Civil Engineer and ambiguousamphibian are marked as sponsored on YouTube. Roadmap: Two Point Studios site, 20 Nov 2026. The DLC's headline feature is my assumption." },
-
-/* 8 */ { title:"For SEGA: free keys first, pay for what works, and measure it properly", shape:"text", text:"£40K",
-  sub:"How I'd run it. The budget is an example, only to show the split.",
-  html:`<div class="body c2">
-    <div class="col">
-      ${sec(1,"An example budget of £40,000",`<div class="budget"><i class="b1" style="flex:15"><b>£15K</b>Comedy creators</i><i class="b2" style="flex:13"><b>£13K</b>History creators</i><i class="b4" style="flex:5"><b>£4K</b>Twitch</i><i class="b3" style="flex:5"><b>£3K</b>Short clips</i><i class="b5" style="flex:6"><b>£5K</b>Held back</i></div>
-      <table style="margin-top:.4em">
-        <tr><th>Amount</th><th>Who</th><th>How</th><th>Why</th></tr>
-        <tr><td>£15K</td><td>Comedy creators on YouTube, plus one who teaches the game<span class="s">about 3 full videos from channels averaging 70K views</span></td><td><b>DLC launch, with a sale the same day.</b> They break the headline feature. Date locked when we book</td><td>Funny moments travel beyond the fans <span class="s">Gamesight: 8 to 10 US cents a view</span></td></tr>
-        <tr><td>£13K</td><td>History creators<span class="s">10 channels averaging 19K views</span></td><td><b>DLC launch week.</b> Each reacts to the new exhibits</td><td>At least ten videos before judging a creator type. About three in ten pay back. <span class="s">Marion Balinoff's podcast, mobile games</span></td></tr>
-        <tr><td>£4K</td><td>Twitch streamers<span class="s">about 4 streams of 2 hours, 500 viewers each</span></td><td><b>Twitch Drops, from 1 Dec.</b> Normal play, for people deciding whether to buy</td><td>Twitch suits PC games <span class="s">HypeAuditor 2025. Gamesight: $1 to $1.50 per viewer per hour</span></td></tr>
-        <tr><td>£3K</td><td>Spark Ads on small accounts' funny clips<span class="s">usage rights plus ad spend, no big creator deals</span></td><td>Pay the accounts whose clips do best for the right to boost them. A small extra fee to post the same clip as a Reel</td><td>Same vertical format, and most TikTok creators also run Instagram <span class="s">MadMorph posted the same paid clip on both, Nov 2024</span></td></tr>
-        <tr><td>SEGA's pool</td><td>TikTok Gaming Incentive Programme<span class="s">outside this £40K</span></td><td><b>DLC launch.</b> The brief is the funny moment. Creators sign up in TikTok Studio and are paid by qualified views</td><td>The biggest funny clips come from small accounts, and this pays them for the views they get</td></tr>
-        <tr class="key"><td>£5K</td><td>Held back</td><td>Add Spark Ads spend if a clip takes off, or rebook a creator who beats their normal views</td><td>Only about three in ten pay back, so I keep money for the ones that do</td></tr>
-      </table><span class="s">All amounts are my assumption. Each line is a public rate times a quantity. The size of the reserve is my choice.</span>`)}
-      ${sec(2,"The second thing I'd copy: how they booked Let's Game It Out",`<ol class="steps"><li><b>Free key</b>Send keys to creators who fit.</li><li><b>Watch</b>See who makes something good.</li><li><b>Pay</b>Book them for the next update.</li><li><b>Count</b>Link, code, and lift over the two starting weeks.</li></ol>`)}
-    </div>
-    <div class="col">
-      ${sec(3,"How I'd measure it",`<table class="k2">
-        <tr><th>What</th><th>How</th></tr>
-        <tr><td><b>Same measures</b></td><td>Travel, curiosity and sales, as on page 6. Each creator gets their own link and code.</td></tr>
-        <tr><td><b>Untracked sales</b></td><td>Links only show part of it, so I'd also count the lift over two weeks with no sale and no update. <span class="s">An InnoGames campaign manager, in Balinoff's interview</span></td></tr>
-        <tr><td><b>New and existing players</b></td><td>Count them separately. A new player buys the game. An existing player only buys the pack.</td></tr>
-        
-        <tr><td><b>Ad label</b></td><td>Every paid or hosted post says "Ad" at the start. Of the 10 Thorpe Park guests whose posts I found, 5 wrote it. <span class="s">CMA guidance for creators, Sep 2025: an event invite counts as payment. ASA influencer guide, 4th edition, Oct 2026</span></td></tr>
-      </table>`)}
-      ${sec(4,"What I'd need from other teams",`<table class="k2">
+      ${sec(3,"What I'd need from other teams",`<table class="k2">
         <tr><td><b>Product Marketing</b></td><td>Keys and sale dates</td></tr>
         <tr><td><b>Two Point Studios</b></td><td>Points us to the funny moment in the DLC</td></tr>
         <tr><td><b>Studio Brand</b></td><td>Approves the briefs and creator content</td></tr>
@@ -383,7 +381,7 @@ const STATIONS = [
       </table>`)}
       <p class="box hot" style="text-align:center;font-weight:600;font-size:1.1em">That's my plan. Happy to take questions.</p>
     </div></div>`,
-  foot:"The budget and its split are assumptions. Sources for each rule are next to the rule. Video and stream counts: my calc with Gamesight's public rates (Upptic podcast, 25 May 2023), at $1.30 to £1 (my assumption). TikTok impressions: my calc at $7.80 to $11.85 per thousand (Benly; Lunio citing Digital Applied, Q1 2026), after £600 for three clips (my assumption). Twitch Drops date: Two Point Studios roadmap, 20 Nov 2026. HypeAuditor and HypeFactory, State of Gaming 2025, page 4. Gaming Incentive Programme: how it works is from TikTok's programme page; that SEGA runs it in EMEA is from the job description, and how SEGA funds the pool I don't know." },
+  foot:"Roadmap: Two Point Studios site, 20 Nov 2026. 4 paid DLCs: VGC. The DLC's headline feature is my assumption. Gaming Incentive Programme: how it works is from TikTok's programme page; that SEGA runs it in EMEA is from the job description. Unpaid history creators: their own YouTube channels, Nov 2026." },
 ];
 
 /* ---------- print mode: index.html?print gives one 1440x810 page per stop (for the PDF backup) ---------- */
