@@ -132,6 +132,7 @@
   b.ni { font-size:1.25em; font-weight:700; color:var(--blue); line-height:1; }
   table.learn td:first-child { background:var(--green-t); } table.learn th:first-child { color:#8fe6b8; } table.learn td:last-child { background:var(--blue-t); font-weight:600; } table.learn th:last-child { color:#a9ceff; }
   table.io td:first-child { font-weight:600; }
+  table.tools th:first-child, table.tools td:first-child { width:22%; } table.tools td:last-child { background:var(--blue-t); }
   .body.c1 { align-content:start; } .notes > section { display:flex; flex-direction:column; } .notes > section > .box { flex:1; }
   /* v35: on portrait screens the table columns get narrow; tags and long handles wrap inside their cell so they never run into the next one */
   @media (max-aspect-ratio: 1/1) { td .tag { white-space:normal; display:inline-block; max-width:100%; padding:.15em .35em; border-radius:.6em; line-height:1.2; } td { overflow-wrap:anywhere; } }
@@ -323,17 +324,16 @@ const STATIONS = [
   sub:"Nobody outside Frontier can see sales per creator, so I measured what I could from outside. A brand like SEGA can add the rest from inside.",
   html:`<div class="body c2">
     <div class="col">
-      ${sec(1,"What I'd measure, in this order",`<table class="k2">
-        <tr><th>Question</th><th>How I'd measure it</th></tr>
-        <tr><td><b>Did the moment travel</b></td><td>Views against that creator's normal, and shares per view, because a funny clip spreads through shares</td></tr>
-        <tr><td><b>Did people get curious</b></td><td>Searches for the game, Steam wishlists and follows, and comments asking what the game is</td></tr>
-        <tr><td><b>Did it sell</b></td><td>Copies through each creator's link and code, plus the lift against two quiet weeks before we start</td></tr>
+      ${sec(1,"What I'd measure, and the free tools I used on Planet Coaster 2",`<table class="k2 tools">
+        <tr><th>Question</th><th>What I'd measure</th><th>Tools I used from outside</th></tr>
+        <tr><td><b>Did the moment travel</b></td><td>Views against the creator's normal, shares per view, and views again at 60 to 90 days</td><td><b>Creator Signal</b> for views against normal. <b>Web archive</b> for views on a given day. <b>SullyGnome</b> for Twitch watch time by channel</td></tr>
+        <tr><td><b>Did people get curious</b></td><td>Searches, Steam wishlists and follows, and comments asking what the game is</td><td><b>Google Trends</b> for searches by day and by country. <b>SteamDB</b> for Steam followers, the closest public sign of wishlists</td></tr>
+        <tr><td><b>Did it sell, or bring players back</b></td><td>Players by day, new players against returning ones, and sales by link and code</td><td><b>SteamDB</b> for daily players and price history. <b>Steam reviews</b>: 15,301 sorted by date and hours played, to see when new players arrived</td></tr>
       </table>`)}
-      ${sec(2,"From outside, and what a brand can add from inside",`<table class="k2 io">
-        <tr><th>What I could measure from outside</th><th>What SEGA could add from inside</th></tr>
-        <tr><td>Views by day, from the web archive and Creator Signal</td><td>Watch time and audience country from each creator's own analytics, written into the deal</td></tr>
-        <tr><td>Searches (Google Trends) and comments</td><td>Visits from each creator's tracked link. Frontier's fron.dev links already carry the creator's name</td></tr>
-        <tr><td>Players, followers and price history (SteamDB), and 15,301 Steam reviews</td><td>Sales by link and code, and new players counted apart from DLC buyers</td></tr>
+      ${sec(2,"What SEGA could add from inside",`<table class="k2 io">
+        <tr><td>Each creator's own analytics</td><td>Watch time and audience country, written into the deal</td></tr>
+        <tr><td>Visits by creator</td><td>From each tracked link. Frontier's fron.dev links already carry the creator's name</td></tr>
+        <tr><td>Sales by creator</td><td>Copies through each link and code, plus the lift against two quiet weeks before we start</td></tr>
       </table>`)}
     </div>
     <div class="col">
@@ -344,7 +344,7 @@ const STATIONS = [
       </table><img src="${IMG.cs}" alt="Creator Signal" style="width:100%;border-radius:.6em;margin-top:.45em;display:block"><span class="s">Normal = median views of their long videos (over 3 min, not live, at least 3 days old). Run on 15 Nov 2026.</span></div>`)}
       <p class="box hot" style="font-weight:600;text-align:center">I'd judge every creator against their own normal, and again at 60 to 90 days. The coaster video had only 23% of its views by day six.</p>
     </div></div>`,
-  foot:"23% by day six: my calc, 2.03M in the web archive on day six ÷ 8.77M on 18 Nov 2026. fron.dev links: each redirects to planetcoaster.com with the creator's name in the link (utm_source), checked Nov 2026. Sponsored videos by Real Civil Engineer and ambiguousamphibian are marked as sponsored on YouTube. Searches: Google Trends. Players, followers and prices: SteamDB." },
+  foot:"Tools: Creator Signal (my own tool), Wayback Machine, SullyGnome, Google Trends, SteamDB and Steam's public reviews, all used for this deck in Nov 2026. 23% by day six: my calc, 2.03M in the web archive on day six ÷ 8.77M on 18 Nov 2026. fron.dev links: each redirects to planetcoaster.com with the creator's name in the link (utm_source), checked Nov 2026. Sponsored videos by Real Civil Engineer and ambiguousamphibian are marked as sponsored on YouTube. Searches: Google Trends. Players, followers and prices: SteamDB." },
 
 /* 8 sega */ { title:"For SEGA: what I'd take into Two Point Museum's next DLC", shape:"text", text:"2027",
   sub:"Two Point is already a comedy game, so funny moments fit it even better. Its next big DLC is due early next year.",
