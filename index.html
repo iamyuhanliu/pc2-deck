@@ -133,6 +133,7 @@
   table.learn td:first-child { background:var(--green-t); } table.learn th:first-child { color:#8fe6b8; } table.learn td:last-child { background:var(--blue-t); font-weight:600; } table.learn th:last-child { color:#a9ceff; }
   table.io td:first-child { font-weight:600; }
   table.tools th:first-child, table.tools td:first-child { width:22%; } table.tools td:last-child { background:var(--blue-t); }
+  table.who2 td:nth-child(2) { font-size:.92em; } table.who2 td:first-child .s { display:block; margin-top:.3em; }
   .body.c1 { align-content:start; } .notes > section { display:flex; flex-direction:column; } .notes > section > .box { flex:1; }
   /* v35: on portrait screens the table columns get narrow; tags and long handles wrap inside their cell so they never run into the next one */
   @media (max-aspect-ratio: 1/1) { td .tag { white-space:normal; display:inline-block; max-width:100%; padding:.15em .35em; border-radius:.6em; line-height:1.2; } td { overflow-wrap:anywhere; } }
@@ -261,37 +262,29 @@ const STATIONS = [
   foot:"Announcement and pre-order dates: Frontier press releases. Thorpe Park event (13 creators and 32 pieces, 11 outlets and 21 pieces) and the four-creator stream: agency Dead Good's case page. Video dates: each video page; Let's Game It Out's 20 Dec 2024 stream: his X post. DLC (12 Dec 2024): Steam news. Sales: SteamDB price history. Update 3 (20 Mar 2025), the summer trailer (17 Jul 2025) and Frontier's October build streams: Steam news. Press numbers and 1.7M (\"Views across YouTube & Twitch\", no date given): Dead Good's case page. About 2M in six days: web archive of the video page. Launch-week and December streamers, jillyeon and GamerZakh: their own X posts or video pages with an ad label, read 22 Nov 2026." },
 
 /* 5 platforms */ { title:"Platform approach: each platform had its own job", shape:"text", text:"55.9M",
-  sub:"YouTube told the whole story, Twitch showed normal play, and short video carried the funny moments.",
-  html:`<div class="body c2">
+  sub:"Who posted where. YouTube told the whole story, Twitch showed normal play, and short video carried the funny moments.",
+  html:`<div class="body c21">
     <div class="col">
-      ${sec(1,"How the content suited each platform",`<table class="pf">
-        <tr><th>Platform</th><th>How it suited the platform and audience</th><th>What Frontier did</th></tr>
-        <tr><td><span class="pl yt">YouTube</span></td><td>A building game needs time. A long video can go from an empty field to a disaster.</td><td>About 10M paid views across seven videos</td></tr>
-        <tr><td><span class="pl tw">Twitch</span></td><td>Hours of normal play, for people who want to watch before they buy.</td><td>Five paid streams in launch week, and seven around the first DLC (Dec 2024)</td></tr>
-        <tr><td><span class="pl tt">TikTok</span></td><td>Short clips of the funniest moments.</td><td>12 paid posts I found, about 3.4M views together</td></tr>
-        <tr><td><span class="pl ig">Instagram</span></td><td>Short, visual clips. The biggest Planet Coaster 2 reels are funny slide rides from small accounts.</td><td>Two posts: one TikTok ad reposted, one collab with a family creator</td></tr>
-      </table>`)}
+      ${sec(1,"Who posted where",`<table class="pf who2">
+        <tr><th>Platform</th><th>Paid creators in this campaign</th><th>How it suited the platform</th></tr>
+        <tr><td><span class="pl yt">YouTube</span><span class="s">7 videos, about 10M views</span></td><td>RTGame (Nov 2024, 504K) · DanTDM (Dec, 703K) · <b>Let's Game It Out (Mar 2025, 8.8M)</b> · jillyeon (Jul, 62K) · GamerZakh (Jul, 4K) · outsidexbox (Jul, 67K) · HeyCara (Aug, 14K)</td><td>A long video builds up to the funny moment, and people still find it months later</td></tr>
+        <tr><td><span class="pl tw">Twitch</span><span class="s">12 paid streams</span></td><td>Launch week: CohhCarnage, plus a relay by DansGaming, QTCinderella, Cinna and Radlerauge · First DLC (Dec 2024): Let's Game It Out, WankilStudio, DrGluon, CrReaM, Dizzy Kitten, GassyMexican and saiiren, with Twitch Drops</td><td>Hours of normal play, for people deciding whether to buy</td></tr>
+        <tr><td><span class="pl tt">TikTok</span><span class="s">12 posts, about 3.4M views</span></td><td>Biggest: halfmoonjoe (885K), laelindria (793K), gamingin60seconds (644K), jillyeon (438K), IGN (308K) · 10 of the 12 went out in launch week or the July sale</td><td>Short clips of the funniest moments</td></tr>
+        <tr><td><span class="pl ig">Instagram</span><span class="s">2 posts</span></td><td>madmorph reposted his paid TikTok (Nov 2024) · allthatisshe, a UK family creator, made a collab (Mar 2025)</td><td>The biggest reels came from small accounts with no paid label</td></tr>
+      </table><span class="s">Same creator on more than one platform: jillyeon and outsidexbox on YouTube and TikTok, madmorph on TikTok and Instagram.</span>`)}
+    </div>
+    <div class="col">
       ${sec(2,"Same format, very different reach",`<div class="igpair">
         <figure><img src="${IMG.ig_bp}" alt=""><figcaption><span class="big">55.9M views</span>"You Won't Believe What This Slide Did To Me" <span class="s">blueprint_fail2, 33K followers, 14 Sep 2026</span></figcaption></figure>
         <figure class="low"><img src="${IMG.ig_art}" alt=""><figcaption><span class="big">7.7K views</span>"Front Row Of AERO", a careful coaster build <span class="s">planetcoasterartichoker, 2.7K followers, 12 Nov 2026</span></figcaption></figure>
       </div>`)}
-    </div>
-    <div class="col">
-      ${sec(3,"Instagram accounts posting Planet Coaster 2 clips",`<table class="acc">
-        <tr><th>Account</th><th>What they post</th><th>Followers</th><th>Typical reel</th><th>Biggest</th></tr>
-        <tr class="key"><td><b>blueprint_fail2</b></td><td>Slide rides, "You won't believe…"</td><td>33K</td><td>302K</td><td>55.9M</td></tr>
-        <tr><td><b>fkanimationstudio</b></td><td>Slide rides, "You are free to scream…"</td><td>219K</td><td>121K</td><td>119M</td></tr>
-        <tr><td><b>bean_worldwide</b></td><td>"Chill" coasters that are anything but</td><td>53K</td><td>494K</td><td>10M</td></tr>
-        <tr><td><b>slide_pov</b></td><td>"The scariest ride made me cry"</td><td>45K</td><td>123K</td><td>4.8M</td></tr>
-        <tr class="dim"><td><b>planetcoaster&shy;artichoker</b></td><td>Careful, realistic coaster builds</td><td>2.7K</td><td>7.2K</td><td>207K</td></tr>
-      </table><span class="s">Typical = median of the latest 21 to 24 reels on each account's page, my calc. Accounts differ in size, so I read this as a pattern, not a precise ratio.</span>`)}
-      ${sec(4,"Instagram search for \"planet coaster 2\"",`<div class="box"><div class="bars">
+      ${sec(3,"Instagram search for \"planet coaster 2\"",`<div class="box"><div class="bars">
         <div class="bar fan"><label>8 funny, over-the-top posts</label><div class="track"><i style="width:100%"></i></div><b>~33K likes</b></div>
         <div class="bar"><label>33 careful builds, showcases and tutorials</label><div class="track"><i style="width:2%"></i></div><b>161 likes</b></div>
       </div><span class="s" style="margin-top:.35em">Median likes, first 45 results. The split is mine, by caption.</span></div>`)}
       <p class="box hot">Funny clips are what travel on short video. I'd find the accounts already making them, pay for the rights, and run them as Spark Ads and Reels ads with the game's name on screen.</p>
     </div></div>`,
-  foot:"Instagram: read in my own logged-in browser on 22 Nov 2026, viewing only. Reel views from each account's reels page. Likes from each post page. TikTok: my own search on 18 Nov 2026, four rounds and 37 search terms; \"12\" is what I found, and there are surely more. Instagram posts by Frontier's partners: my search, 20 Nov 2026." },
+  foot:"YouTube and TikTok views: each page, Nov 2026. Twitch: stream titles and the streamers' own posts on X with an ad label; the four-streamer relay is from Dead Good's case page. Instagram: read in my own logged-in browser on 22 Nov 2026, viewing only. Reel views from each account's reels page. Likes from each post page. TikTok: my own search on 18 Nov 2026, four rounds and 37 search terms; \"12\" is what I found, and there are surely more. Instagram posts by Frontier's partners: my search, 20 Nov 2026." },
 
 /* 6 assessment */ { title:"Assessment: what worked, and what I'd improve", shape:"text", text:"23%",
   sub:"Nobody outside Frontier can see sales per creator. So I checked what I could by day: Steam players, reviews, price and Google searches.",
