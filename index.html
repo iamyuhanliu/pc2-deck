@@ -134,6 +134,16 @@
   table.io td:first-child { font-weight:600; }
   table.tools th:first-child, table.tools td:first-child { width:22%; } table.tools td:last-child { background:var(--blue-t); }
   table.who2 td:nth-child(2) { font-size:.92em; } table.who2 td:first-child .s { display:block; margin-top:.3em; }
+  .trows { display:grid; gap:.55em; }
+  .trow { display:grid; grid-template-columns:10.5em 1fr; gap:.6em; align-items:stretch; }
+  .tq { background:var(--blue-t); border-radius:.8em; padding:.6em .75em; color:var(--ink); display:flex; flex-direction:column; justify-content:center; }
+  .tq b { font-size:1.02em; line-height:1.2; } .tq small { display:block; margin-top:.3em; color:#44527e; font-size:.8em; line-height:1.3; }
+  .tchips { display:grid; grid-template-columns:repeat(auto-fit,minmax(10.5em,1fr)); gap:.5em; }
+  .tchip { display:flex; align-items:center; gap:.55em; background:#eef3ff; border-radius:.8em; padding:.5em .6em; color:var(--ink); }
+  .tchip .ti { flex:none; width:2.6em; height:2.6em; display:block; } .tchip .ti svg { width:100%; height:100%; display:block; border-radius:.55em; box-shadow:0 2px 6px rgba(8,25,70,.25); }
+  .tchip b { display:block; font-size:.98em; line-height:1.15; } .tchip small { display:block; font-size:.8em; line-height:1.25; color:#44527e; margin-top:.15em; }
+  section.grown:has(> .trows) { justify-content:flex-start; } section.grown > .trows { flex:1; grid-auto-rows:1fr; }
+  .inpills { display:flex; flex-wrap:wrap; gap:.5em; } .inpills span { background:var(--green-t); color:var(--ink); border-radius:99px; padding:.45em .9em; font-weight:600; font-size:.92em; }
   .body.c1 { align-content:start; } .notes > section { display:flex; flex-direction:column; } .notes > section > .box { flex:1; }
   /* v35: on portrait screens the table columns get narrow; tags and long handles wrap inside their cell so they never run into the next one */
   @media (max-aspect-ratio: 1/1) { td .tag { white-space:normal; display:inline-block; max-width:100%; padding:.15em .35em; border-radius:.6em; line-height:1.2; } td { overflow-wrap:anywhere; } }
@@ -167,6 +177,15 @@ const th = id => `<img class="th" src="${IMG['th_'+id]}" alt="">`;
 const who = (k,name,extra) => `<div class="who">${av(k,'sm')}<div>${name}${extra?`<span class="s">${extra}</span>`:''}</div></div>`;
 const sec = (n,t,html) => `<section><h3><i>${n}</i>${t}</h3>${html}</section>`;
 
+const TI = {
+  cs:`<svg viewBox="0 0 40 40"><rect width="40" height="40" rx="9" fill="#ff3d8b"/><rect x="9" y="24" width="5" height="8" rx="1" fill="#fff"/><rect x="17.5" y="17" width="5" height="15" rx="1" fill="#fff"/><rect x="26" y="10" width="5" height="22" rx="1" fill="#fff"/></svg>`,
+  wb:`<svg viewBox="0 0 40 40"><rect width="40" height="40" rx="9" fill="#1f1f1f"/><polygon points="7,15 20,8 33,15" fill="#fff"/><rect x="10" y="17" width="3" height="11" fill="#fff"/><rect x="16" y="17" width="3" height="11" fill="#fff"/><rect x="21" y="17" width="3" height="11" fill="#fff"/><rect x="27" y="17" width="3" height="11" fill="#fff"/><rect x="7" y="29" width="26" height="3" fill="#fff"/></svg>`,
+  sg:`<svg viewBox="0 0 40 40"><rect width="40" height="40" rx="9" fill="#9146ff"/><path d="M11 9h19v14l-6 6h-5l-3 3v-3h-5V9z" fill="#fff"/><rect x="17" y="13" width="2.5" height="6" fill="#9146ff"/><rect x="23" y="13" width="2.5" height="6" fill="#9146ff"/></svg>`,
+  gt:`<svg viewBox="0 0 40 40"><rect width="40" height="40" rx="9" fill="#fff"/><polyline points="7,29 15,19 22,25 33,11" fill="none" stroke="#4285f4" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round"/><circle cx="15" cy="19" r="3" fill="#ea4335"/><circle cx="22" cy="25" r="3" fill="#fbbc05"/><circle cx="33" cy="11" r="3" fill="#34a853"/></svg>`,
+  sd:`<svg viewBox="0 0 40 40"><rect width="40" height="40" rx="9" fill="#1b2838"/><circle cx="15" cy="24" r="5.5" fill="none" stroke="#66c0f4" stroke-width="3"/><circle cx="27" cy="14" r="4.5" fill="#66c0f4"/><line x1="19" y1="21" x2="24" y2="17" stroke="#66c0f4" stroke-width="3"/></svg>`,
+  sr:`<svg viewBox="0 0 40 40"><rect width="40" height="40" rx="9" fill="#2a475e"/><rect x="9" y="18" width="5" height="13" rx="1" fill="#fff"/><path d="M16 31h10.5c1.5 0 2.6-1 2.9-2.4l1.6-7c.4-1.6-.9-3.3-2.6-3.3H24l1.2-4.6c.4-1.6-.6-3.2-2.1-3.5L16 18z" fill="#fff"/></svg>`,
+};
+const tool = (k,name,what) => `<div class="tchip"><i class="ti">${TI[k]}</i><span><b>${name}</b><small>${what}</small></span></div>`;
 const STATIONS = [
 /* 1 overview */ { title:"Planet Coaster 2 let creators break the game, and kept going after launch", shape:"loop",
   sub:"Campaign overview: the game, who it was for, and what I think the campaign was trying to do.",
@@ -317,17 +336,12 @@ const STATIONS = [
   sub:"Nobody outside Frontier can see sales per creator, so I measured what I could from outside. A brand like SEGA can add the rest from inside.",
   html:`<div class="body c2">
     <div class="col">
-      ${sec(1,"What I'd measure, and the free tools I used on Planet Coaster 2",`<table class="k2 tools">
-        <tr><th>Question</th><th>What I'd measure</th><th>Tools I used from outside</th></tr>
-        <tr><td><b>Did the moment travel</b></td><td>Views against the creator's normal, shares per view, and views again at 60 to 90 days</td><td><b>Creator Signal</b> for views against normal. <b>Web archive</b> for views on a given day. <b>SullyGnome</b> for Twitch watch time by channel</td></tr>
-        <tr><td><b>Did people get curious</b></td><td>Searches, Steam wishlists and follows, and comments asking what the game is</td><td><b>Google Trends</b> for searches by day and by country. <b>SteamDB</b> for Steam followers, the closest public sign of wishlists</td></tr>
-        <tr><td><b>Did it sell, or bring players back</b></td><td>Players by day, new players against returning ones, and sales by link and code</td><td><b>SteamDB</b> for daily players and price history. <b>Steam reviews</b>: 15,301 sorted by date and hours played, to see when new players arrived</td></tr>
-      </table>`)}
-      ${sec(2,"What SEGA could add from inside",`<table class="k2 io">
-        <tr><td>Each creator's own analytics</td><td>Watch time and audience country, written into the deal</td></tr>
-        <tr><td>Visits by creator</td><td>From each tracked link. Frontier's fron.dev links already carry the creator's name</td></tr>
-        <tr><td>Sales by creator</td><td>Copies through each link and code, plus the lift against two quiet weeks before we start</td></tr>
-      </table>`)}
+      ${sec(1,"What I'd measure, and the free tools I used",`<div class="trows">
+        <div class="trow"><div class="tq"><b>Did the moment travel</b><small>Views against normal, shares, again at 60 to 90 days</small></div><div class="tchips">${tool('cs','Creator Signal','Views against the creator\'s normal')}${tool('wb','Web archive','Day six had only 23% of today\'s views')}${tool('sg','SullyGnome','Twitch watch time by channel')}</div></div>
+        <div class="trow"><div class="tq"><b>Did people get curious</b><small>Searches, wishlists, "what game is this?" comments</small></div><div class="tchips">${tool('gt','Google Trends','Searches peaked the day after the coaster video')}${tool('sd','SteamDB','Steam followers, closest to wishlists')}</div></div>
+        <div class="trow"><div class="tq"><b>Did it sell, or bring players back</b><small>Players by day, new against returning, sales by link</small></div><div class="tchips">${tool('sd','SteamDB','Daily players and price history')}${tool('sr','Steam reviews','15,301 sorted by date and hours played')}</div></div>
+      </div>`)}
+      ${sec(2,"What SEGA could add from inside",`<div class="inpills"><span>Each creator's own analytics, in the deal</span><span>Visits per tracked link (fron.dev links already carry the creator's name)</span><span>Sales by link and code</span></div>`)}
     </div>
     <div class="col">
       ${sec(3,"Checking a creator against their own normal",`<div class="csbox"><div class="cshead"><b>Creator Signal, a tool I built</b><span class="cslink">iamyuhanliu.github.io/creator-signal</span></div><table class="k2">
